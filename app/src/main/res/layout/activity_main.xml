@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".activity.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/aMain_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/aMain_toolbar"
+            layout="@layout/layout_toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/aMain_bottomNavigationView"
+        android:layout_below="@+id/aMain_appBarLayout"
+        android:id="@+id/main_container"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/aMain_bottomNavigationView"
+        android:layout_width="match_parent"
+        app:labelVisibilityMode="unlabeled"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:itemIconTint="@drawable/main_bnv_selector"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_navigation"/>
+
+</RelativeLayout>

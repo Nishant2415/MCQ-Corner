@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
+    android:fillViewport="true"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:padding="@dimen/scale_10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <ImageView
+            android:focusableInTouchMode="true"
+            android:layout_width="@dimen/scale_100dp"
+            android:layout_height="@dimen/scale_100dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Splash screen logo"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter email">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aRegister_edtEmail"
+                android:layout_width="match_parent"
+                android:inputType="textEmailAddress"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/scale_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter password">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aRegister_edtPassword"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/scale_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter confirm password">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aRegister_edtConfirmPassword"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter mobile no">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aRegister_edtMobileNo"
+                android:layout_width="match_parent"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/aRegister_btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Register"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/aRegister_txtSignIn"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/scale_32dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="Already have account? Sign In" />
+
+    </LinearLayout>
+</ScrollView>

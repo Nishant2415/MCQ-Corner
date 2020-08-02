@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:ignore="HardcodedText"
+    tools:context=".activity.LoginActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/scale_10dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:focusableInTouchMode="true"
+            android:layout_width="@dimen/scale_100dp"
+            android:layout_height="@dimen/scale_100dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Splash screen logo"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter email">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aLogin_edtEmail"
+                android:layout_width="match_parent"
+                android:inputType="textEmailAddress"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="@dimen/scale_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter password">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/aLogin_edtPassword"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/aLogin_btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Login"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/aLogin_txtSignUp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/scale_32dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="Not Registered? Sign Up" />
+
+    </LinearLayout>
+</ScrollView>
