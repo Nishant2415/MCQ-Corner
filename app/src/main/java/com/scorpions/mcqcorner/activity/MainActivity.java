@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.aMain_toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null)
-            getSupportActionBar().setTitle("MCQ Corner");
+            getSupportActionBar().setTitle(R.string.app_name);
     }
 
     @Override

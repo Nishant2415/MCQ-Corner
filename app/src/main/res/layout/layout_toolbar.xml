@@ -2,8 +2,11 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:titleTextColor="@color/colorPrimaryText"
     android:background="@color/colorPrimary"
+    tools:ignore="HardcodedText"
+    android:orientation="vertical"
     android:layout_height="?attr/actionBarSize">
 
 </androidx.appcompat.widget.Toolbar>

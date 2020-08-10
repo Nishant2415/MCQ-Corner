@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -119,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.aRegister_edtPassword);
         btnRegister = findViewById(R.id.aRegister_btnRegister);
         txtSignIn = findViewById(R.id.aRegister_txtSignIn);
+        txtSignIn.setText(Html.fromHtml("Already registered? <b><font color='#DC1414'>Sign In</font</b>"));
         edtConfirmPassword = findViewById(R.id.aRegister_edtConfirmPassword);
         edtMobileNo = findViewById(R.id.aRegister_edtMobileNo);
 

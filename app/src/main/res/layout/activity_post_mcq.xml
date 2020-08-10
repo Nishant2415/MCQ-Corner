@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".activity.PostMcqActivity"
+    tools:ignore="HardcodedText">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/aPostMcq_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        app:elevation="@dimen/scale_0dp">
+
+        <include
+            android:id="@+id/aPostMcq_toolbar"
+            layout="@layout/layout_post_mcq_toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/scale_12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/scale_40dp"
+                android:layout_height="@dimen/scale_40dp"
+                android:layout_marginEnd="@dimen/scale_6dp"
+                android:src="@drawable/logo" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_8dp"
+                android:autofillHints=""
+                android:background="@color/colorTransparent"
+                android:hint="@string/write_something"
+                android:inputType="textMultiLine|textCapSentences"
+                android:textSize="@dimen/text_18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:padding="@dimen/scale_12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioGroup
+                    android:layout_gravity="start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/aPostMcq_rbOptionA"
+                        android:layout_margin="@dimen/scale_3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:id="@+id/aPostMcq_rbOptionB"
+                        android:layout_margin="@dimen/scale_3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:id="@+id/aPostMcq_rbOptionC"
+                        android:layout_margin="@dimen/scale_3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:id="@+id/aPostMcq_rbOptionD"
+                        android:layout_margin="@dimen/scale_3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/scale_8dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/scale_8dp"
+                    android:autofillHints=""
+                    android:background="@color/colorTransparent"
+                    android:hint="@string/option_a"
+                    android:inputType="textCapWords"
+                    android:textSize="@dimen/text_18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/scale_8dp"
+                    android:autofillHints=""
+                    android:background="@color/colorTransparent"
+                    android:hint="@string/option_b"
+                    android:inputType="textCapWords"
+                    android:textSize="@dimen/text_18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/scale_8dp"
+                    android:autofillHints=""
+                    android:background="@color/colorTransparent"
+                    android:hint="@string/option_c"
+                    android:inputType="textCapWords"
+                    android:textSize="@dimen/text_18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/scale_8dp"
+                    android:autofillHints=""
+                    android:background="@color/colorTransparent"
+                    android:hint="@string/option_d"
+                    android:inputType="textCapWords"
+                    android:textSize="@dimen/text_18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
