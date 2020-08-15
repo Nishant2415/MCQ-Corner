@@ -54,6 +54,7 @@ public class SetUsernameActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Dipak and Rakshit
                 if (edtUsername.getEditText() != null & edtPassword.getEditText() != null) {
                     String username = edtUsername.getEditText().getText().toString().trim();
                     String password = edtPassword.getEditText().getText().toString().trim();
@@ -64,12 +65,17 @@ public class SetUsernameActivity extends AppCompatActivity {
                             edtPassword.setError("Please enter password!");
                         } else if (password.length() < 6) {
                             edtPassword.setError("Please enter strong password!");
+                        } else {
+                            Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
                         }
                     } else {
                         mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()) {
+                                if (task.isSuccessful()) {
                                     if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
                                         Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

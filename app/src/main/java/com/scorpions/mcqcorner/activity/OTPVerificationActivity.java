@@ -45,7 +45,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
         final String mobileNo = "+91" + getIntent().getStringExtra("mobileNo");
 
-        //sendVerificationCode(mobileNo);
+        sendVerificationCode(mobileNo);
 
         txtTimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,11 +58,11 @@ public class OTPVerificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!edtVerificationCode.getText().toString().isEmpty()) {
-                    //verifyVerificationCode(edtVerificationCode.getText().toString());
-                    Intent intent = new Intent(OTPVerificationActivity.this, SetUsernameActivity.class);
+                    verifyVerificationCode(edtVerificationCode.getText().toString());
+                    /*Intent intent = new Intent(OTPVerificationActivity.this, SetUsernameActivity.class);
                     intent.putExtra(Global.FLAG, Global.FROM_OTP_VERIFICATION);
                     startActivity(intent);
-                    finish();
+                    finish();*/
                 }
             }
         });
