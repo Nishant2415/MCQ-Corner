@@ -8,6 +8,4 @@ public class Global {
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
-    public static final String VARUN = "Varun";
-    public static final String MAYUR = "Mayur";
 }
