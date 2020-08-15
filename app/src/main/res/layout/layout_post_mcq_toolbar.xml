@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:ignore="HardcodedText">
@@ -21,16 +22,13 @@
             android:src="@drawable/ic_close" />
 
         <Button
-            android:layout_width="@dimen/scale_80dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/scale_10dp"
-            android:background="@drawable/button_round"
             android:text="Post"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_16sp" />
+            app:backgroundTint="@color/colorAccent"/>
 
     </RelativeLayout>
 

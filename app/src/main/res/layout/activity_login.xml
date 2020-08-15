@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     tools:ignore="HardcodedText"
     tools:context=".activity.LoginActivity">
@@ -12,37 +13,46 @@
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:padding="@dimen/scale_10dp"
+        android:paddingTop="@dimen/scale_64dp"
+        android:paddingBottom="@dimen/scale_64dp"
+        android:paddingStart="@dimen/scale_16dp"
+        android:paddingEnd="@dimen/scale_16dp"
         android:layout_height="wrap_content">
 
         <ImageView
             android:focusableInTouchMode="true"
-            android:layout_width="@dimen/scale_100dp"
-            android:layout_height="@dimen/scale_100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/scale_70dp"
             android:src="@drawable/logo"
+            android:layout_marginBottom="@dimen/text_32dp"
             android:contentDescription="Splash screen logo"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/scale_20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter email">
+            style="@style/AppTheme.EditTextLayout"
+            android:hint="Email or username">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/aLogin_edtEmail"
+                android:id="@+id/aLogin_edtUsername"
                 android:layout_width="match_parent"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
+                style="@style/AppTheme.EditText"
+                android:maxLength="40"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="@dimen/scale_5dp"
+            android:layout_marginTop="@dimen/scale_10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password">
+            style="@style/AppTheme.EditTextLayout"
+            android:hint="Password">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/aLogin_edtPassword"
                 android:layout_width="match_parent"
                 android:inputType="textPassword"
+                style="@style/AppTheme.EditText"
+                android:maxLength="16"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,18 +60,16 @@
             android:id="@+id/aLogin_btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
             android:layout_marginTop="32dp"
-            android:text="Login"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorAccent" />
+            android:text="Login" />
 
         <TextView
             android:id="@+id/aLogin_txtSignUp"
             android:layout_width="wrap_content"
             android:layout_marginTop="@dimen/scale_32dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:text="Not Registered? Sign Up" />
+            android:textColor="@color/colorBlack" />
 
     </LinearLayout>
 </ScrollView>

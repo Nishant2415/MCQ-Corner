@@ -3,15 +3,11 @@ package com.scorpions.mcqcorner.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.scorpions.mcqcorner.fragment.HomeFragment;
 import com.scorpions.mcqcorner.fragment.ProfileFragment;
 import com.scorpions.mcqcorner.fragment.SearchFragment;
@@ -22,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bnv;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         bnv = findViewById(R.id.aMain_bottomNavigationView);
-        toolbar = findViewById(R.id.aMain_toolbar);
+        Toolbar toolbar = findViewById(R.id.aMain_toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null)
             getSupportActionBar().setTitle(R.string.app_name);

@@ -18,10 +18,9 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/feather"
-            android:tint="@color/colorWhite"
+            app:tint="@color/colorWhite"
             app:backgroundTint="@color/colorAccent" />
 
     </FrameLayout>
-
 
 </LinearLayout>

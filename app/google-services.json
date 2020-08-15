@@ -8,41 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:642588682564:android:1aed66cb41c626174a0f11",
+        "mobilesdk_app_id": "1:642588682564:android:b050f7754003fccb4a0f11",
         "android_client_info": {
           "package_name": "com.scorpions.mcqcorner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "642588682564-0j2t3f6tli9uobc858k3nuf0di6ohn5l.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAxwcAsWPp3oI4BlvmXAtFuLFcH0uZ8i1k"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "642588682564-0j2t3f6tli9uobc858k3nuf0di6ohn5l.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:642588682564:android:a118c8d854c880a94a0f11",
-        "android_client_info": {
-          "package_name": "com.example.mcqs"
-        }
-      },
-      "oauth_client": [
+          "client_id": "642588682564-7ee4b9ke13g7of1kek3k7gdgteb57k7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scorpions.mcqcorner",
+            "certificate_hash": "add33f474e8740deef3df06e9cf4c9b8bd357bf7"
+          }
+        },
         {
           "client_id": "642588682564-0j2t3f6tli9uobc858k3nuf0di6ohn5l.apps.googleusercontent.com",
           "client_type": 3
@@ -57,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "642588682564-0j2t3f6tli9uobc858k3nuf0di6ohn5l.apps.googleusercontent.com",
+              "client_id": "642588682564-h1elugtarrchcrht1h45971mjcu549kj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

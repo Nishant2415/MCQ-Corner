@@ -7,20 +7,12 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:ignore="HardcodedText"
-    tools:context=".activity.SplashScreen">
+    tools:context=".activity.SplashScreenActivity">
 
     <ImageView
-        android:layout_width="@dimen/scale_100dp"
+        android:layout_width="@dimen/scale_180dp"
         android:layout_height="@dimen/scale_100dp"
         android:src="@drawable/logo"
         android:contentDescription="Splash screen logo"/>
-
-    <TextView
-        android:layout_marginTop="@dimen/scale_32dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/text_32dp"
-        android:text="@string/app_name" />
 
 </LinearLayout>

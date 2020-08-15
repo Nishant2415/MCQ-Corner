@@ -2,18 +2,17 @@ package com.scorpions.mcqcorner.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.scorpions.mcqcorner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,11 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText edtEmail, edtPassword;
+    private EditText edtUsername, edtPassword;
     private Button btnSignIn;
     private TextView txtSignUp;
     private FirebaseAuth mAuth;
-    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         init();
 
-        if(mAuth.getCurrentUser() != null) {
+        if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
             finish();
@@ -43,27 +41,15 @@ public class LoginActivity extends AppCompatActivity {
             btnSignIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String email = edtEmail.getText().toString().trim();
+                    String username = edtUsername.getText().toString().trim();
                     String password = edtPassword.getText().toString().trim();
 
-                    if(TextUtils.isEmpty(email)) {
-                        edtEmail.setError("Invalid");
-                        edtEmail.requestFocus();
+                    if(TextUtils.isEmpty(username)) {
+                        edtUsername.setError("Invalid");
+                        edtUsername.requestFocus();
                     } else if(TextUtils.isEmpty(password)) {
                         edtPassword.setError("Invalid");
                         edtPassword.requestFocus();
-                    } else {
-                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    finish();
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
                     }
                 }
             });
@@ -78,12 +64,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mAuth = FirebaseAuth.getInstance();
-        edtEmail =findViewById(R.id.aLogin_edtEmail);
+        edtUsername =findViewById(R.id.aLogin_edtUsername);
         edtPassword =findViewById(R.id.aLogin_edtPassword);
         btnSignIn=findViewById(R.id.aLogin_btnLogin);
         txtSignUp =findViewById(R.id.aLogin_txtSignUp);
         txtSignUp.setText(Html.fromHtml("Not registered? <b><font color='#DC1414'>Sign up</font</b>"));
-        sp = getApplicationContext().getSharedPreferences("User", MODE_PRIVATE);
+        mAuth = FirebaseAuth.getInstance();
     }
 }

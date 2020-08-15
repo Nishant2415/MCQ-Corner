@@ -8,4 +8,5 @@
     <color name="colorGrey">#FF857878</color>
     <color name="colorPrimaryText">#2C2C2C</color>
     <color name="colorTransparent">#0000</color>
+    <color name="colorRipple">#DD928D</color>
 </resources>

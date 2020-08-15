@@ -2,31 +2,26 @@ package com.scorpions.mcqcorner.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
-import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.scorpions.mcqcorner.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.scorpions.mcqcorner.fragment.RegisterEmailFragment;
+import com.scorpions.mcqcorner.fragment.RegisterMobileFragment;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText edtEmail, edtPassword;
-    private Button btnRegister;
+    private TabLayout tabLayout;
     private TextView txtSignIn;
-    private FirebaseAuth mAuth;
-    private EditText edtConfirmPassword, edtMobileNo;
-    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,70 +30,35 @@ public class RegisterActivity extends AppCompatActivity {
 
         init();
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.register_container, new RegisterMobileFragment()).commit();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            Fragment fragment;
             @Override
-            public void onClick(View v) {
-                String email = edtEmail.getText().toString().trim();
-                String password = edtPassword.getText().toString().trim();
-                String mobileNo = edtMobileNo.getText().toString().trim();
-                String confirmPassword = edtConfirmPassword.getText().toString().trim();
-
-                int valid = 0;
-
-                if (TextUtils.isEmpty(email)) {
-                    edtEmail.setError("Invalid");
-                    edtEmail.requestFocus();
-                    valid = 1;
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tabLayout.getSelectedTabPosition()){
+                    case 0:
+                        fragment = new RegisterMobileFragment();
+                        break;
+                    case 1:
+                        fragment = new RegisterEmailFragment();
+                        break;
+                    default:
+                        fragment = null;
+                        break;
                 }
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.register_container, fragment).commit();
 
-                if (TextUtils.isEmpty(password)) {
-                    edtPassword.setError("Invalid");
-                    edtPassword.requestFocus();
-                    valid = 1;
-                }
+            }
 
-                if (TextUtils.isEmpty(confirmPassword)) {
-                    edtConfirmPassword.setError("Invalid");
-                    edtConfirmPassword.requestFocus();
-                    valid = 1;
-                }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-                if (!confirmPassword.equals(password)) {
-                    edtConfirmPassword.setError("Password didn't match!");
-                    edtConfirmPassword.requestFocus();
-                    valid = 1;
-                }
+            }
 
-                if (!Patterns.PHONE.matcher(mobileNo).matches()) {
-                    edtMobileNo.setError("Contact is not valid");
-                    edtMobileNo.requestFocus();
-                    valid = 1;
-                }
-
-                if (mobileNo.length() != 10) {
-                    edtMobileNo.setError("Enter valid contact number");
-                    edtMobileNo.requestFocus();
-                    valid = 1;
-                }
-
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    edtEmail.setError("Email address is not valid");
-                    edtEmail.requestFocus();
-                    valid = 1;
-                }
-
-                if (valid == 0) {
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                finish();
-                            }
-                        }
-                    });
-                }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
             }
         });
 
@@ -114,16 +74,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void init() {
-        sp = getApplicationContext().getSharedPreferences("User", MODE_PRIVATE);
 
-        edtEmail = findViewById(R.id.aRegister_edtEmail);
-        edtPassword = findViewById(R.id.aRegister_edtPassword);
-        btnRegister = findViewById(R.id.aRegister_btnRegister);
+        tabLayout = findViewById(R.id.aRegister_tabLayout);
         txtSignIn = findViewById(R.id.aRegister_txtSignIn);
         txtSignIn.setText(Html.fromHtml("Already registered? <b><font color='#DC1414'>Sign In</font</b>"));
-        edtConfirmPassword = findViewById(R.id.aRegister_edtConfirmPassword);
-        edtMobileNo = findViewById(R.id.aRegister_edtMobileNo);
-
-        mAuth = FirebaseAuth.getInstance();
     }
 }

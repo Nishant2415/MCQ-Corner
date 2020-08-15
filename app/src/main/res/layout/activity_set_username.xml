@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:context=".activity.SetUsernameActivity"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/scale_64dp"
+        android:paddingBottom="@dimen/scale_64dp"
+        android:paddingStart="@dimen/scale_16dp"
+        android:paddingEnd="@dimen/scale_16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/scale_70dp"
+            android:contentDescription="Splash screen logo"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/logo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/aSetUsername_edtUsername"
+            style="@style/AppTheme.EditTextLayout"
+            android:layout_width="match_parent"
+            app:errorEnabled="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_32dp"
+            android:hint="Enter username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/AppTheme.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/aSetUsername_edtPassWord"
+            style="@style/AppTheme.EditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_16dp"
+            android:hint="Enter password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/AppTheme.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/aSetUsername_btnNext"
+            style="@style/AppTheme.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_40dp"
+            android:text="Next" />
+
+    </LinearLayout>
+
+</ScrollView>
