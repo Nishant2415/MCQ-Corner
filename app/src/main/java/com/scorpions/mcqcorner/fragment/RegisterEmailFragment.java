@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +23,6 @@ import com.scorpions.mcqcorner.config.Global;
 public class RegisterEmailFragment extends Fragment {
 
     private EditText edtEmail, edtPassword;
-    private Button btnNext;
     private FirebaseAuth mAuth;
 
     public RegisterEmailFragment() {
@@ -41,7 +38,7 @@ public class RegisterEmailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         edtEmail = view.findViewById(R.id.fRegisterEmail_edtEmailAddress);
         edtPassword = view.findViewById(R.id.fRegisterEmail_edtPassWord);
-        btnNext = view.findViewById(R.id.fRegisterEmail_btnNext);
+        Button btnNext = view.findViewById(R.id.fRegisterEmail_btnNext);
         mAuth = FirebaseAuth.getInstance();
 
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -66,12 +63,17 @@ public class RegisterEmailFragment extends Fragment {
                                 mAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(view.getContext(), "Temporary toast", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getActivity(), SetUsernameActivity.class);
-                                        intent.putExtra(Global.FLAG, Global.FROM_EMAIL);
-                                        intent.putExtra(Global.EMAIL, email);
-                                        intent.putExtra(Global.PASSWORD, password);
-                                        startActivity(intent);
+
+                                        Global.showCustomDialog(new Global.OnDialogClickListener() {
+                                            @Override
+                                            public void OnOkClicked() {
+                                                Intent intent = new Intent(getActivity(), SetUsernameActivity.class);
+                                                intent.putExtra(Global.FLAG, Global.FROM_EMAIL);
+                                                intent.putExtra(Global.EMAIL, email);
+                                                intent.putExtra(Global.PASSWORD, password);
+                                                startActivity(intent);
+                                            }
+                                        }, getContext(), "Verification link sent to this email, Please verify your account");
                                     }
                                 });
                             }

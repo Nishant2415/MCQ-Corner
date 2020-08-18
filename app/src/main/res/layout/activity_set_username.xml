@@ -37,6 +37,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/AppTheme.EditText"
                 android:layout_width="match_parent"
+                android:maxLength="20"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryText" />
 
@@ -53,6 +54,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/AppTheme.EditText"
                 android:layout_width="match_parent"
+                android:maxLength="20"
+                android:inputType="textPassword"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryText" />
 

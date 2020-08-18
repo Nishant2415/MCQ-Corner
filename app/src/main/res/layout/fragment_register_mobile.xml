@@ -20,6 +20,7 @@
             android:id="@+id/fRegisterMobile_edtMobileNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="20"
             style="@style/AppTheme.EditText"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>

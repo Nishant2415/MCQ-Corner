@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AppTheme.EditText"
+            android:maxLength="40"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:maxLength="20"
             android:textColor="@color/colorPrimaryText" />
 
     </com.google.android.material.textfield.TextInputLayout>

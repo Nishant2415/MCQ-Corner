@@ -7,24 +7,22 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.config.Global;
+import com.scorpions.mcqcorner.model.LoginModel;
 
 public class SetUsernameActivity extends AppCompatActivity {
 
@@ -54,9 +52,8 @@ public class SetUsernameActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Dipak and Rakshit
                 if (edtUsername.getEditText() != null & edtPassword.getEditText() != null) {
-                    String username = edtUsername.getEditText().getText().toString().trim();
+                    final String username = edtUsername.getEditText().getText().toString().trim();
                     String password = edtPassword.getEditText().getText().toString().trim();
                     if (TextUtils.isEmpty(username)) {
                         edtUsername.setError("Please enter username!");
@@ -66,10 +63,7 @@ public class SetUsernameActivity extends AppCompatActivity {
                         } else if (password.length() < 6) {
                             edtPassword.setError("Please enter strong password!");
                         } else {
-                            Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
+                            setUsername(username, password);
                         }
                     } else {
                         mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -77,12 +71,15 @@ public class SetUsernameActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
-                                        Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                        finish();
+                                        setUsername(username, mPassword);
                                     } else {
-                                        Toast.makeText(SetUsernameActivity.this, "Temporary toast that email not verified!", Toast.LENGTH_SHORT).show();
+                                        Global.showCustomDialog(new Global.OnDialogClickListener() {
+                                            @Override
+                                            public void OnOkClicked() {
+                                                Intent intent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
+                                                startActivity(intent);
+                                            }
+                                        }, SetUsernameActivity.this, "Please verify email address!");
                                     }
                                 }
                             }
@@ -116,11 +113,11 @@ public class SetUsernameActivity extends AppCompatActivity {
                 public void onTextChanged(CharSequence word, int i, int i1, int i2) {
                     final String username = edtUsername.getEditText().getText().toString().trim();
                     if (!TextUtils.isEmpty(username)) {
-                        db.collection(Global.PROFILE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                if (value != null) {
-                                    for (DocumentSnapshot documentSnapshot : value) {
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if (queryDocumentSnapshots != null) {
+                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                         if (documentSnapshot.exists()) {
                                             if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
                                                 edtUsername.setError("Username already taken!");
@@ -144,6 +141,26 @@ public class SetUsernameActivity extends AppCompatActivity {
                 @Override
                 public void afterTextChanged(Editable editable) {
 
+                }
+            });
+        }
+    }
+
+    private void setUsername(String username, String password) {
+        LoginModel loginModel = new LoginModel();
+        loginModel.username = username;
+        loginModel.password = password;
+        if (mAuth.getCurrentUser() != null) {
+            db.collection(Global.PROFILE).document(mAuth.getCurrentUser().getUid())
+                    .set(loginModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             });
         }
