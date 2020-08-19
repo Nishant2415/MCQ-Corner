@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,10 +24,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.config.Global;
-import com.scorpions.mcqcorner.model.LoginModel;
+import com.scorpions.mcqcorner.model.UserModel;
 
 public class SetUsernameActivity extends AppCompatActivity {
 
+    private static final String TAG = "SetUsernameActivity";
     private TextInputLayout edtUsername, edtPassword;
     private Button btnNext;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,10 +59,10 @@ public class SetUsernameActivity extends AppCompatActivity {
                     final String username = edtUsername.getEditText().getText().toString().trim();
                     String password = edtPassword.getEditText().getText().toString().trim();
                     if (TextUtils.isEmpty(username)) {
-                        edtUsername.setError("Please enter username!");
+                        edtUsername.setError(Global.INVALID);
                     } else if (flag.equals(Global.FROM_OTP_VERIFICATION)) {
                         if (TextUtils.isEmpty(password)) {
-                            edtPassword.setError("Please enter password!");
+                            edtPassword.setError(Global.INVALID);
                         } else if (password.length() < 6) {
                             edtPassword.setError("Please enter strong password!");
                         } else {
@@ -113,26 +116,31 @@ public class SetUsernameActivity extends AppCompatActivity {
                 public void onTextChanged(CharSequence word, int i, int i1, int i2) {
                     final String username = edtUsername.getEditText().getText().toString().trim();
                     if (!TextUtils.isEmpty(username)) {
-                        db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                if (queryDocumentSnapshots != null) {
-                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                        if (documentSnapshot.exists()) {
-                                            if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
-                                                edtUsername.setError("Username already taken!");
-                                                return;
-                                            } else {
-                                                edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-                                                edtUsername.setEndIconDrawable(R.drawable.ic_check);
-                                                edtUsername.setError(null);
-                                                btnNext.setEnabled(true);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                       db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                           @Override
+                           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                               if (queryDocumentSnapshots.isEmpty()) {
+                                   edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                   edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                   edtUsername.setError(null);
+                                   btnNext.setEnabled(true);
+                               } else {
+                                   for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                       if (documentSnapshot.exists()) {
+                                           if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
+                                               edtUsername.setError(Global.USERNAME_TAKEN);
+                                               return;
+                                           } else {
+                                               edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                               edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                               edtUsername.setError(null);
+                                               btnNext.setEnabled(true);
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+                       });
                     } else {
                         edtUsername.setEndIconDrawable(null);
                     }
@@ -147,15 +155,13 @@ public class SetUsernameActivity extends AppCompatActivity {
     }
 
     private void setUsername(String username, String password) {
-        LoginModel loginModel = new LoginModel();
-        loginModel.username = username;
-        loginModel.password = password;
+        UserModel userModel = new UserModel(username, password);
         if (mAuth.getCurrentUser() != null) {
             db.collection(Global.PROFILE).document(mAuth.getCurrentUser().getUid())
-                    .set(loginModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    .set(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()) {
+                    if (task.isSuccessful()) {
                         Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

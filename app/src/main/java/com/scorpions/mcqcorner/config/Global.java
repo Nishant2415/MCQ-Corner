@@ -16,6 +16,11 @@ public class Global {
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
+    public static final String IS_LOGGED_IN = "isLoggedIn";
+    public static final CharSequence INVALID = "Invalid";
+    public static final CharSequence INVALID_EMAIL = "Invalid Email or Password!";
+    public static final CharSequence INVALID_USERNAME = "Invalid Username or Password!";
+    public static final CharSequence USERNAME_TAKEN = "Username already taken!";
 
     private static OnDialogClickListener clickListener;
 

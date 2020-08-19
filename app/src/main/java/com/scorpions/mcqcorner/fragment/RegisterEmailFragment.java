@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -63,7 +65,6 @@ public class RegisterEmailFragment extends Fragment {
                                 mAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
                                         Global.showCustomDialog(new Global.OnDialogClickListener() {
                                             @Override
                                             public void OnOkClicked() {
@@ -76,6 +77,8 @@ public class RegisterEmailFragment extends Fragment {
                                         }, getContext(), "Verification link sent to this email, Please verify your account");
                                     }
                                 });
+                            } else {
+                                Toast.makeText(view.getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
