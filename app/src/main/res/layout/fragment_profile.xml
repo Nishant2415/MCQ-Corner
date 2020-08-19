@@ -1,108 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragment.ProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragement.ProfileFragement">
 
-    <ScrollView
-        android:scrollbarThumbVertical="@null"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/gradientbackground">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:background="@color/colorWhite"
-            android:padding="10dp"
             android:layout_height="wrap_content">
 
-            <!--<ImageView
-                android:id="@+id/aSetting_imgProfile"
-                android:src="@drawable/logo"
-                android:layout_width="140dp"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"
-                android:layout_height="140dp" />-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:inputType="textCapSentences"
-                    android:id="@+id/aSetting_edtUsername"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp"
-                    android:hint="Enter username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/scale_100dp"
+                android:layout_height="@dimen/scale_100dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/profile"
+                android:layout_marginTop="@dimen/scale_50dp"
+                android:layout_marginStart="10dp"
+                android:elevation="1dp"
+                android:src="@drawable/icon_user"></de.hdodenhof.circleimageview.CircleImageView>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/aSetting_edtCityName"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorBlack"
-                    android:inputType="textCapSentences"
-                    android:hint="Enter city name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
 
-                <EditText
-                    android:text="+91"
-                    android:textSize="16sp"
-                    android:enabled="false"
-                    android:layout_marginEnd="8dp"
-                    android:textColor="@color/colorBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="350dp"
+                    android:layout_height="280dp"
+                    android:layout_centerHorizontal="true"
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/aSetting_edtMobileNo"
-                        android:hint="Enter mobile number"
-                        android:textSize="14sp"
-                        android:inputType="number"
-                        android:maxLength="10"
+                    android:layout_marginTop="100dp"
+                    app:cardCornerRadius="10dp">
+
+
+                    <TextView
+                        android:id="@+id/lUserName_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="@dimen/scale_60dp"
+                        android:text="User Name"
                         android:textColor="@color/colorBlack"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:textSize="20dp"></TextView>
+
+
+                    <TextView
+                        android:id="@+id/lUserWebsite_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="150dp"
+                        android:layout_marginLeft="120dp"
+                        android:layout_marginTop="@dimen/scale_90dp"
+                        android:text="Website"
+                        android:textColor="@color/colorGrey"></TextView>
+
+
+                    <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scale_20dp"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/scale_120dp">
+
+                        <TextView
+                            android:id="@+id/postnum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:text="0"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/scale_20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/posttext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:text="Posts"
+                            android:textColor="@color/colorBlack"></TextView>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/scale_110dp"
+                        android:paddingTop="@dimen/scale_120dp">
+
+                        <TextView
+                            android:id="@+id/followernum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="@dimen/scale_10dp"
+                            android:text="0"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/scale_20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/followertext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/scale_30dp"
+                            android:text="Followers"
+                            android:textColor="@color/colorBlack"></TextView>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/scale_120dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="220dp">
+
+                        <TextView
+                            android:id="@+id/followingnum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="@dimen/scale_10dp"
+                            android:text="0"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/scale_20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/followingtext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/scale_30dp"
+                            android:text="Following"
+                            android:textColor="@color/colorBlack"></TextView>
+                    </LinearLayout>
+
+
+
+
+                    <Button
+                        android:layout_width="@dimen/scale_200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scale_80dp"
+                        android:layout_marginTop="@dimen/scale_190dp"
+                        android:text="Edit Profile"
+                        android:id="@+id/btnedit"
+                        style="@style/AppTheme.Button"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="5"
+
+                        />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/aSetting_edtEmail"
-                    android:textSize="14sp"
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="250dp"
+                android:layout_width="350dp"
+                android:layout_marginTop="420dp"
+                android:layout_centerHorizontal="true"
+                app:cardCornerRadius="@dimen/scale_10dp"
+                android:backgroundTint="@color/colorWhite"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/scale_20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textSize="@dimen/scale_20dp"
                     android:textColor="@color/colorBlack"
-                    android:inputType="textEmailAddress"
-                    android:hint="Enter email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:id="@+id/post"
+                    android:text="Posts"></TextView>
 
+            </com.google.android.material.card.MaterialCardView>
 
-
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>

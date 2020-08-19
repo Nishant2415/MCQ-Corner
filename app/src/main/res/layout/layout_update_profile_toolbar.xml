@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/lUpdateProfile_imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/scale_5dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="Toolbar navigation icon"
+            android:src="@drawable/ic_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textAllCaps="false"
+            android:paddingTop="@dimen/scale_14dp"
+            android:paddingLeft="@dimen/scale_35dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_22sp"
+            />
+
+        <Button
+            android:id="@+id/lUpdateProfile_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/scale_10dp"
+            android:text="Update"
+            app:backgroundTint="@color/colorAccent" />
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>
