@@ -33,14 +33,13 @@
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="@dimen/scale_100dp"
-                android:layout_height="@dimen/scale_100dp"
-
                 android:id="@+id/profile"
-                android:layout_marginTop="@dimen/scale_30dp"
+                android:layout_width="86dp"
+                android:layout_height="@dimen/scale_100dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/scale_30dp"
 
-                android:src="@drawable/icon_user"></de.hdodenhof.circleimageview.CircleImageView>
+                android:src="@drawable/user"></de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
                 android:layout_width="match_parent"
