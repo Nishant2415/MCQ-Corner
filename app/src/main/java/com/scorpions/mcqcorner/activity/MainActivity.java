@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.scorpions.mcqcorner.config.Global;
+import com.scorpions.mcqcorner.config.Preference;
 import com.scorpions.mcqcorner.fragment.HomeFragment;
 import com.scorpions.mcqcorner.fragment.ProfileFragment;
 import com.scorpions.mcqcorner.fragment.SearchFragment;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.logout) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             FirebaseAuth.getInstance().signOut();
+            Preference.setBoolean(getApplicationContext(), Global.IS_LOGGED_IN, false);
             finish();
             return true;
         }

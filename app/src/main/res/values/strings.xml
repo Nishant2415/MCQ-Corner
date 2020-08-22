@@ -13,5 +13,5 @@
     <string name="reg_email">Email</string>
     <string name="reg_phone_no">Mobile</string>
     <string name="otp_verification">OTP Verification</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
 </resources>

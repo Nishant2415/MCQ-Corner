@@ -59,10 +59,6 @@ public class OTPVerificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!edtVerificationCode.getText().toString().isEmpty()) {
                     verifyVerificationCode(edtVerificationCode.getText().toString());
-                    /*Intent intent = new Intent(OTPVerificationActivity.this, SetUsernameActivity.class);
-                    intent.putExtra(Global.FLAG, Global.FROM_OTP_VERIFICATION);
-                    startActivity(intent);
-                    finish();*/
                 }
             }
         });

@@ -58,6 +58,7 @@ public class RegisterEmailFragment extends Fragment {
                 } else if (password.length() < 6) {
                     edtPassword.setError("Use strong password");
                 } else {
+                    Global.showLoadingDialog(view.getContext());
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -75,9 +76,11 @@ public class RegisterEmailFragment extends Fragment {
                                                 startActivity(intent);
                                             }
                                         }, getContext(), "Verification link sent to this email, Please verify your account");
+                                        Global.dismissDialog();
                                     }
                                 });
                             } else {
+                                Global.dismissDialog();
                                 Toast.makeText(view.getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                             }
                         }

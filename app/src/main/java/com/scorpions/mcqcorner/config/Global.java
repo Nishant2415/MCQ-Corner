@@ -23,6 +23,7 @@ public class Global {
     public static final CharSequence USERNAME_TAKEN = "Username already taken!";
 
     private static OnDialogClickListener clickListener;
+    private static Dialog loadingDialog;
 
     public static void showCustomDialog(OnDialogClickListener listener, Context context, String msg) {
         final Dialog dialog = new Dialog(context);
@@ -51,5 +52,22 @@ public class Global {
 
     public interface OnDialogClickListener {
         void OnOkClicked();
+    }
+
+    public static void showLoadingDialog(Context context) {
+        loadingDialog = new Dialog(context);
+        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loadingDialog.setContentView(R.layout.layout_loading);
+        loadingDialog.setCancelable(false);
+
+        if(loadingDialog.getWindow()!=null) {
+            loadingDialog.getWindow().setBackgroundDrawableResource(R.color.colorTransparent);
+        }
+
+        loadingDialog.show();
+    }
+
+    public static void dismissDialog() {
+        loadingDialog.dismiss();
     }
 }

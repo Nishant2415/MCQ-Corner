@@ -66,6 +66,7 @@ public class SetUsernameActivity extends AppCompatActivity {
                         } else if (password.length() < 6) {
                             edtPassword.setError("Please enter strong password!");
                         } else {
+                            Global.showLoadingDialog(SetUsernameActivity.this);
                             setUsername(username, password);
                         }
                     } else {
@@ -74,6 +75,7 @@ public class SetUsernameActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
+                                        Global.showLoadingDialog(SetUsernameActivity.this);
                                         setUsername(username, mPassword);
                                     } else {
                                         Global.showCustomDialog(new Global.OnDialogClickListener() {
@@ -114,7 +116,7 @@ public class SetUsernameActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence word, int i, int i1, int i2) {
-                    final String username = edtUsername.getEditText().getText().toString().trim();
+                    final String username = edtUsername.getEditText().getText().toString().trim().toLowerCase();
                     if (!TextUtils.isEmpty(username)) {
                        db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                            @Override
@@ -143,6 +145,7 @@ public class SetUsernameActivity extends AppCompatActivity {
                        });
                     } else {
                         edtUsername.setEndIconDrawable(null);
+                        edtUsername.setError(null);
                     }
                 }
 
@@ -162,10 +165,13 @@ public class SetUsernameActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        Global.dismissDialog();
                         Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
+                    } else {
+                        Global.dismissDialog();
                     }
                 }
             });

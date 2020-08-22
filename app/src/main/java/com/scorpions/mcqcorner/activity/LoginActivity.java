@@ -50,9 +50,11 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         } else {
+
             btnSignIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Global.showLoadingDialog(LoginActivity.this);
                     userModel = new UserModel(edtUsername.getText().toString().trim(), edtPassword.getText().toString().trim());
 
                     if (TextUtils.isEmpty(userModel.getUsername())) {
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                             mAuth.signInWithEmailAndPassword(userModel.getUsername(), userModel.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Global.dismissDialog();
                                     if (task.isSuccessful()) {
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
@@ -80,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                                     .whereEqualTo(Global.USERNAME, userModel.getUsername()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    Global.dismissDialog();
                                     if (queryDocumentSnapshots.isEmpty()) {
                                         Toast.makeText(LoginActivity.this, Global.INVALID_USERNAME, Toast.LENGTH_SHORT).show();
                                     } else {

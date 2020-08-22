@@ -1,4 +1,4 @@
-package com.scorpions.mcqcorner.activity.adapter;
+package com.scorpions.mcqcorner.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
