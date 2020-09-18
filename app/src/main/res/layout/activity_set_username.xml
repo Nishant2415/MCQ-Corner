@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:maxLength="20"
                 android:layout_height="wrap_content"
-                android:digits="abcdefghijklmnopqrstuvwxyz_"
+                android:digits="abcdefghijklmnopqrstuvwxyz_0123456789"
                 android:textColor="@color/colorPrimaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>

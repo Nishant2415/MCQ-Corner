@@ -22,6 +22,7 @@
             android:src="@drawable/ic_close" />
 
         <Button
+            android:id="@+id/lPostMcq_btnPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

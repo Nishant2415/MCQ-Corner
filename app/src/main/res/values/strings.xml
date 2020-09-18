@@ -14,4 +14,21 @@
     <string name="reg_phone_no">Mobile</string>
     <string name="otp_verification">OTP Verification</string>
     <string name="ok">OK</string>
+
+    <string-array name="category">
+        <item>Programming</item>
+        <item>Logical/Reasoning</item>
+        <item>Aptitude</item>
+        <item>Communication</item>
+        <item>English</item>
+        <item>Maths</item>
+        <item>General Awareness</item>
+        <item>Biology</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Accounts</item>
+        <item>Science</item>
+        <item>Technology</item>
+        <item>Geometry</item>
+    </string-array>
 </resources>
