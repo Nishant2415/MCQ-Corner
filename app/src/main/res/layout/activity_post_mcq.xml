@@ -49,6 +49,7 @@
                 android:textSize="@dimen/text_18sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
                 android:id="@+id/aPostMcq_rgOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:orientation="vertical"
                 android:padding="@dimen/scale_8dp">
 
                 <RadioButton
@@ -132,14 +133,26 @@
                     android:inputType="textCapWords"
                     android:textSize="@dimen/text_18sp" />
             </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:text="Select Category"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:layout_marginStart="@dimen/scale_14dp"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <Spinner
             android:id="@+id/aPostMcq_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/scale_30dp"
+            android:layout_marginTop="@dimen/scale_10dp"
             android:entries="@array/category"
-            android:padding="@dimen/scale_8dp" />
+            android:layout_marginStart="@dimen/scale_8dp"
+            android:layout_marginEnd="@dimen/scale_8dp"
+            />
     </LinearLayout>
 
 </LinearLayout>

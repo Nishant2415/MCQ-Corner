@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                             String password = documentSnapshot.getString(Global.PASSWORD);
                                             if (userModel.getPassword().equals(password)) {
                                                 Preference.setBoolean(getApplicationContext(), Global.IS_LOGGED_IN, true);
+                                                Preference.setString(LoginActivity.this, Global.USER_ID, documentSnapshot.getId());
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                 startActivity(intent);
                                                 finish();
