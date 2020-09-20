@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.config.Global;
+import com.scorpions.mcqcorner.config.Preference;
 import com.scorpions.mcqcorner.model.McqModel;
 
 public class PostMcqActivity extends AppCompatActivity {
@@ -87,7 +88,8 @@ public class PostMcqActivity extends AppCompatActivity {
 
     private void postMCQ(String question,String optionA, String optionB, String optionC, String optionD, String answer,String category) {
         McqModel mcqModel = new McqModel(question,optionA,optionB,optionC,optionD,answer,category);
-        db.collection(Global.MCQ).document().set(mcqModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection(Global.MCQ).document(Preference.getString(PostMcqActivity.this,Global.USER_ID))
+                .collection(Global.MCQ).document().set(mcqModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {

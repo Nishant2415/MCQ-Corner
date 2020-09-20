@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,7 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (TextUtils.isEmpty(userModel.getUsername())) {
                         edtUsername.setError(Global.INVALID);
-                    } if (TextUtils.isEmpty(userModel.getPassword())) {
+                    }
+                    if (TextUtils.isEmpty(userModel.getPassword())) {
                         edtPassword.setError(Global.INVALID);
                     } else {
                         if (userModel.getUsername().contains("@")) {
@@ -70,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
+                                        Preference.setString(LoginActivity.this, Global.USER_ID, mAuth.getCurrentUser().getUid());
                                         finish();
                                     } else {
                                         Toast.makeText(LoginActivity.this, Global.INVALID_EMAIL, Toast.LENGTH_SHORT).show();
@@ -89,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                                             String password = documentSnapshot.getString(Global.PASSWORD);
-                                            if(userModel.getPassword().equals(password)) {
+                                            if (userModel.getPassword().equals(password)) {
                                                 Preference.setBoolean(getApplicationContext(), Global.IS_LOGGED_IN, true);
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                 startActivity(intent);
