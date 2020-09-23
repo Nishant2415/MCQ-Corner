@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.config.Global;
+import com.scorpions.mcqcorner.config.Preference;
 import com.scorpions.mcqcorner.model.UserModel;
 
 public class SetUsernameActivity extends AppCompatActivity {
@@ -168,6 +169,7 @@ public class SetUsernameActivity extends AppCompatActivity {
                         Global.dismissDialog();
                         Intent intent = new Intent(SetUsernameActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        Preference.setString(SetUsernameActivity.this, Global.USER_ID, mAuth.getCurrentUser().getUid());
                         startActivity(intent);
                         finish();
                     } else {

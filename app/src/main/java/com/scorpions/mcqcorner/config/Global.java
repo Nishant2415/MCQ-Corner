@@ -23,6 +23,9 @@ public class Global {
     public static final CharSequence INVALID_EMAIL = "Invalid Email or Password!";
     public static final CharSequence INVALID_USERNAME = "Invalid Username or Password!";
     public static final CharSequence USERNAME_TAKEN = "Username already taken!";
+    public static final String WEBSITE = "website";
+    public static final String MOBILE_NO = "mobileNo";
+    public static final String PROFILE_PIC = "profilePic";
 
     private static OnDialogClickListener clickListener;
     private static Dialog loadingDialog;

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.scorpions.mcqcorner.activity.EditProfile">
+    android:orientation="vertical"
+    tools:context="com.scorpions.mcqcorner.activity.EditProfile"
+    tools:ignore="HardcodedText">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/aPostMcq_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -17,157 +17,118 @@
         <include
             android:id="@+id/aUpdateProfile_toolbar"
             layout="@layout/layout_update_profile_toolbar" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
-        android:scrollbarThumbVertical="@null"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
-        android:layout_height="match_parent">
+        android:scrollbarThumbVertical="@null">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:background="@color/colorWhite"
-            android:padding="10dp"
-            android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile"
-                android:layout_width="86dp"
-                android:layout_height="@dimen/scale_100dp"
+                android:id="@+id/aEditProfile_imgProfilePic"
+                android:layout_width="@dimen/scale_80dp"
+                android:layout_height="@dimen/scale_80dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/scale_30dp"
-
-                android:src="@drawable/user"></de.hdodenhof.circleimageview.CircleImageView>
+                android:src="@drawable/user" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/aEditProfile_txtTemp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/aSetting_edtUserChangePhoto"
-                android:gravity="center_horizontal"
-                android:text="Change Profile Photo"
-                android:textColor="@color/colorBlack"></TextView>
+                android:layout_marginTop="@dimen/scale_10dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Change Profile Picture"
+                android:textColor="@color/colorBlack" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AppTheme.EditTextLayout"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/aEditProfile_edtUsername"
                     style="@style/AppTheme.EditText"
-                    android:inputType="textCapSentences"
-                    android:id="@+id/aSetting_edtUsername"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:inputType="textCapSentences"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
                 style="@style/AppTheme.EditTextLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:inputType="textCapSentences"
+                    android:id="@+id/aEditProfile_edtWebsite"
                     style="@style/AppTheme.EditText"
-                    android:id="@+id/aSetting_edtWebsite"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
-                    android:hint="Website"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="Website"
+                    android:inputType="textCapSentences"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/scale_16dp"
-                android:paddingTop="@dimen/scale_20dp"
+                android:layout_marginTop="@dimen/scale_20dp"
                 android:text="Personal Information"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/text_16sp" />
 
-                />
-
-
-
-
-
-
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.EditTextLayout"
                 android:layout_width="match_parent"
-                android:weightSum="3"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
-                <com.hbb20.CountryCodePicker
-                    android:layout_width="@dimen/scale_180dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    app:ccp_textSize="@dimen/text_16sp"
-                    app:ccp_autoDetectCountry="true"
-                    app:ccp_showNameCode="true"
-                    android:id="@+id/ccps"
-
-                    ></com.hbb20.CountryCodePicker>
-
-               <!-- <EditText
-                    android:id="@+id/aSetting_edtMobileNo"
-                    android:hint="Enter mobile number"
-                    android:textSize="14sp"
-                    android:inputType="number"
-                    android:layout_weight="2"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/aEditProfile_edtMobileNo"
                     style="@style/AppTheme.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter mobile number"
+                    android:inputType="number"
                     android:maxLength="15"
                     android:textColor="@color/colorBlack"
-                    android:layout_width="@dimen/scale_0dp"
-                    android:layout_height="wrap_content"></EditText>-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_marginTop="10dp"
-                    style="@style/AppTheme.EditTextLayout"
-                    android:layout_width="match_parent"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:inputType="number"
-                        android:maxLength="15"
-                        style="@style/AppTheme.EditText"
-                        android:id="@+id/aSetting_edtMobileNo"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="14sp"
-                        android:hint="Enter mobile number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
-                style="@style/AppTheme.EditTextLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/aSetting_edtEmail"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorBlack"
-                    android:inputType="textEmailAddress"
-                    style="@style/AppTheme.EditText"
-                    android:hint="Enter email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.EditTextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/aEditProfile_edtEmail"
+                    style="@style/AppTheme.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
-    </ScrollView>
 
+    </ScrollView>
 
 </LinearLayout>
