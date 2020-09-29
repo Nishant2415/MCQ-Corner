@@ -32,10 +32,11 @@
             android:padding="@dimen/scale_12dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/aPostMcq_imgProfilePic"
                 android:layout_width="@dimen/scale_40dp"
                 android:layout_height="@dimen/scale_40dp"
                 android:layout_marginEnd="@dimen/scale_6dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/user" />
 
             <EditText
                 android:id="@+id/aPostMcq_edtQuestion"

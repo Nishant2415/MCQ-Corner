@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/scale_10dp"
+    android:layout_marginTop="@dimen/scale_10dp"
+    android:layout_marginEnd="@dimen/scale_10dp"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rvAdapter_user_image"
+            android:layout_width="@dimen/scale_50dp"
+            android:layout_height="@dimen/scale_50dp"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/rvAdapter_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/scale_14dp"
+            android:text="Username"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_16sp" />
+
+        <TextView
+            android:id="@+id/rvAdapter_bullet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/scale_6dp"
+            android:text="\u2022"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/rvAdapter_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/scale_6dp"
+            android:text="Time"
+            android:textSize="@dimen/text_16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rvAdapter_MCQ_Question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale_10dp"
+        android:text="Question"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/rvAdapter_MCQ_OptionA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale_5dp"
+        android:text="option A"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_16sp" />
+
+    <TextView
+        android:id="@+id/rvAdapter_MCQ_OptionB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale_5dp"
+        android:text="option B"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_16sp" />
+
+    <TextView
+        android:id="@+id/rvAdapter_MCQ_OptionC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale_5dp"
+        android:text="option C"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_16sp" />
+
+    <TextView
+        android:id="@+id/rvAdapter_MCQ_OptionD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale_5dp"
+        android:text="option D"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_16sp" />
+
+    <TextView
+        android:id="@+id/rvAdapter_MCQ_Answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale_5dp"
+        android:text="Answer"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/scale_16dp"
+        android:background="@drawable/view_shade" />
+
+</LinearLayout>

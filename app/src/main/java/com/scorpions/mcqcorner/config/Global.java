@@ -26,6 +26,8 @@ public class Global {
     public static final String WEBSITE = "website";
     public static final String MOBILE_NO = "mobileNo";
     public static final String PROFILE_PIC = "profilePic";
+    public static final String FOLLOWING = "following";
+    public static final String TIME = "time";
 
     private static OnDialogClickListener clickListener;
     private static Dialog loadingDialog;
