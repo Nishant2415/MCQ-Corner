@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/fHome_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/fHome_toolbar"
+            layout="@layout/layout_toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
@@ -21,6 +30,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fHome_rvPost"
         android:layout_width="match_parent"
+        android:layout_below="@id/fHome_appBarLayout"
         android:layout_height="match_parent"
         tools:listitem="@layout/layout_mcq_single"
         android:scrollbars="vertical" />

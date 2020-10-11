@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new HomeFragment(this)).commit();
 
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.mNavigation_home:
-                        fragment = new HomeFragment();
+                        fragment = new HomeFragment(MainActivity.this);
                         break;
                     case R.id.mNavigation_search:
-                        fragment = new SearchFragment();
+                        fragment = new SearchFragment(MainActivity.this);
                         break;
                     case R.id.mNavigation_profile:
                         fragment = new ProfileFragment();
@@ -61,27 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         bnv = findViewById(R.id.aMain_bottomNavigationView);
-        Toolbar toolbar = findViewById(R.id.aMain_toolbar);
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null)
-            getSupportActionBar().setTitle(R.string.app_name);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            FirebaseAuth.getInstance().signOut();
-            Preference.setBoolean(getApplicationContext(), Global.IS_LOGGED_IN, false);
-            finish();
-            return true;
-        }
-        return false;
-    }
 }

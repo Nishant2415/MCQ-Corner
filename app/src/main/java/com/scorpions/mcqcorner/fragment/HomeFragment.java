@@ -3,22 +3,29 @@ package com.scorpions.mcqcorner.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
+import com.scorpions.mcqcorner.activity.LoginActivity;
+import com.scorpions.mcqcorner.activity.MainActivity;
 import com.scorpions.mcqcorner.activity.PostMcqActivity;
 import com.scorpions.mcqcorner.adapter.MCQAdapter;
 import com.scorpions.mcqcorner.config.Global;
@@ -35,14 +42,20 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvPosts;
     private List<McqModel> mcqModelList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private MainActivity mainActivity;
 
-    public HomeFragment() {
-
+    public HomeFragment(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Toolbar toolbar = view.findViewById(R.id.fHome_toolbar);
+        mainActivity.setSupportActionBar(toolbar);
+        mainActivity.getSupportActionBar().setTitle("MCQ Corner");
+        setHasOptionsMenu(true);
+        return view;
     }
 
     @Override
@@ -66,7 +79,7 @@ public class HomeFragment extends Fragment {
                     public void onSuccess(final DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             final List<String> followingList = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWING);
-                            final List<String> trimmedFollowingList = new ArrayList<String>();
+                            final List<String> trimmedFollowingList = new ArrayList<>();
                             for (String s : followingList) {
                                 trimmedFollowingList.add(s.trim());
                             }
@@ -90,5 +103,22 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.logout && getActivity() != null) {
+            startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+            FirebaseAuth.getInstance().signOut();
+            Preference.setBoolean(getActivity(), Global.IS_LOGGED_IN, false);
+            getActivity().finish();
+            return true;
+        }
+        return false;
     }
 }

@@ -17,11 +17,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.config.Global;
 import com.scorpions.mcqcorner.config.Preference;
 import com.scorpions.mcqcorner.model.McqModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PostMcqActivity extends AppCompatActivity {
 
@@ -41,7 +45,10 @@ public class PostMcqActivity extends AppCompatActivity {
                 .addOnSuccessListener(PostMcqActivity.this, new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Glide.with(getApplicationContext()).load(documentSnapshot.getString(Global.PROFILE_PIC)).into(imgProfilePic);
+                        Glide.with(getApplicationContext())
+                                .load(documentSnapshot.getString(Global.PROFILE_PIC))
+                                .placeholder(R.drawable.user)
+                                .into(imgProfilePic);
                     }
                 });
 
@@ -100,6 +107,9 @@ public class PostMcqActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Map<String, Object> MCQMap = new HashMap<>();
+                    MCQMap.put(Global.POSTS, FieldValue.increment(1));
+                    db.collection(Global.PROFILE).document(Preference.getString(PostMcqActivity.this, Global.USER_ID)).update(MCQMap);
                     Toast.makeText(PostMcqActivity.this, "MCQ uploaded!", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {

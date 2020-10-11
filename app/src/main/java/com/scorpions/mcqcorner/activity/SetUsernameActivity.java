@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
@@ -27,9 +27,13 @@ import com.scorpions.mcqcorner.config.Global;
 import com.scorpions.mcqcorner.config.Preference;
 import com.scorpions.mcqcorner.model.UserModel;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SetUsernameActivity extends AppCompatActivity {
 
-    private static final String TAG = "SetUsernameActivity";
+    //private static final String TAG = "SetUsernameActivity";
     private TextInputLayout edtUsername, edtPassword;
     private Button btnNext;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -119,31 +123,31 @@ public class SetUsernameActivity extends AppCompatActivity {
                 public void onTextChanged(CharSequence word, int i, int i1, int i2) {
                     final String username = edtUsername.getEditText().getText().toString().trim().toLowerCase();
                     if (!TextUtils.isEmpty(username)) {
-                       db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                           @Override
-                           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                               if (queryDocumentSnapshots.isEmpty()) {
-                                   edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-                                   edtUsername.setEndIconDrawable(R.drawable.ic_check);
-                                   edtUsername.setError(null);
-                                   btnNext.setEnabled(true);
-                               } else {
-                                   for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                       if (documentSnapshot.exists()) {
-                                           if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
-                                               edtUsername.setError(Global.USERNAME_TAKEN);
-                                               return;
-                                           } else {
-                                               edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-                                               edtUsername.setEndIconDrawable(R.drawable.ic_check);
-                                               edtUsername.setError(null);
-                                               btnNext.setEnabled(true);
-                                           }
-                                       }
-                                   }
-                               }
-                           }
-                       });
+                        db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if (queryDocumentSnapshots.isEmpty()) {
+                                    edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                    edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                    edtUsername.setError(null);
+                                    btnNext.setEnabled(true);
+                                } else {
+                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                        if (documentSnapshot.exists()) {
+                                            if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
+                                                edtUsername.setError(Global.USERNAME_TAKEN);
+                                                return;
+                                            } else {
+                                                edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                                edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                                edtUsername.setError(null);
+                                                btnNext.setEnabled(true);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     } else {
                         edtUsername.setEndIconDrawable(null);
                         edtUsername.setError(null);
@@ -159,10 +163,17 @@ public class SetUsernameActivity extends AppCompatActivity {
     }
 
     private void setUsername(String username, String password) {
-        UserModel userModel = new UserModel(username, password);
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put(Global.USERNAME, username);
+        userMap.put(Global.PASSWORD, password);
+        userMap.put(Global.EMAIL, "");
+        userMap.put(Global.FOLLOWING, FieldValue.arrayUnion());
+        userMap.put(Global.FOLLOWERS, FieldValue.arrayUnion());
+        userMap.put(Global.POSTS, 0);
+
         if (mAuth.getCurrentUser() != null) {
             db.collection(Global.PROFILE).document(mAuth.getCurrentUser().getUid())
-                    .set(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    .set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {

@@ -7,21 +7,10 @@
     android:background="@color/colorWhite"
     tools:context=".activity.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/aMain_appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_height="wrap_content">
-        <include
-            android:id="@+id/aMain_toolbar"
-            layout="@layout/layout_toolbar"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/aMain_bottomNavigationView"
-        android:layout_below="@+id/aMain_appBarLayout"
         android:id="@+id/main_container"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

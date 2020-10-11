@@ -23,8 +23,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.activity.EditProfile;
+import com.scorpions.mcqcorner.activity.MainActivity;
 import com.scorpions.mcqcorner.config.Global;
 import com.scorpions.mcqcorner.config.Preference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,9 +39,10 @@ public class ProfileFragment extends Fragment {
     String userid;
     Button btnedt;
     TextView txtUserName, txtUserWebsite;
+    private TextView txtPostCount, txtFollowingCount, txtFollowerCount;
 
     public ProfileFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -51,6 +56,11 @@ public class ProfileFragment extends Fragment {
         btnedt = view.findViewById(R.id.btnedit);
         txtUserName = view.findViewById(R.id.lUserName_profile);
         txtUserWebsite = view.findViewById(R.id.lUserWebsite_profile);
+
+        txtPostCount = view.findViewById(R.id.fProfile_txtPostCount);
+        txtFollowingCount = view.findViewById(R.id.fProfile_txtFollowingCount);
+        txtFollowerCount = view.findViewById(R.id.fProfile_txtFollowerCount);
+
         btnedtclick();
 
         getProfile(view);
@@ -64,9 +74,14 @@ public class ProfileFragment extends Fragment {
         db.collection(Global.PROFILE).document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()) {
+                if (documentSnapshot.exists()) {
                     txtUserName.setText(documentSnapshot.getString(Global.USERNAME));
                     txtUserWebsite.setText(documentSnapshot.getString(Global.WEBSITE));
+                    ArrayList<String> followingCount = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWING);
+                    ArrayList<String> followerCount = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWERS);
+                    txtFollowingCount.setText(String.valueOf(followingCount.size()));
+                    txtFollowerCount.setText(String.valueOf(followerCount.size()));
+                    txtPostCount.setText(String.valueOf(documentSnapshot.get(Global.POSTS)));
                 }
             }
         });
