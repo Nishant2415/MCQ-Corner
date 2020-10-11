@@ -61,27 +61,31 @@ public class HomeFragment extends Fragment {
 
     private void setRecyclerView(View view) {
         db.collection(Global.PROFILE).document(Preference.getString(view.getContext(), Global.USER_ID)).get()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<DocumentSnapshot>() {
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(final DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            List<String> following = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWING);
-                            if (following != null) {
-                                for (String follower : following) {
-                                    db.collection(Global.MCQ).document(follower.trim()).collection(Global.MCQ).orderBy(Global.TIME, Query.Direction.DESCENDING).get()
-                                            .addOnSuccessListener(getActivity(), new OnSuccessListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                    for (DocumentSnapshot ds : queryDocumentSnapshots) {
+                            final List<String> followingList = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWING);
+                            final List<String> trimmedFollowingList = new ArrayList<String>();
+                            for (String s : followingList) {
+                                trimmedFollowingList.add(s.trim());
+                            }
+                            if (trimmedFollowingList.size() != 0) {
+                                db.collection(Global.MCQ).orderBy(Global.TIME, Query.Direction.DESCENDING).get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                for (DocumentSnapshot ds : queryDocumentSnapshots) {
+                                                    if (trimmedFollowingList.contains(ds.getString("userId"))) {
                                                         McqModel mcqModel = ds.toObject(McqModel.class);
                                                         mcqModelList.add(mcqModel);
                                                     }
-                                                    MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
-                                                    rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                                    rvPosts.setAdapter(recyclerViewAdapter);
                                                 }
-                                            });
-                                }
+                                                MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
+                                                rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                                rvPosts.setAdapter(recyclerViewAdapter);
+                                            }
+                                        });
                             }
                         }
                     }

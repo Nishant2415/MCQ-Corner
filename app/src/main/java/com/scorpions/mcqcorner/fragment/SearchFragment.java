@@ -1,65 +1,97 @@
 package com.scorpions.mcqcorner.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
+import com.scorpions.mcqcorner.adapter.MCQAdapter;
+import com.scorpions.mcqcorner.config.Global;
+import com.scorpions.mcqcorner.model.McqModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class SearchFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private SearchView searchView;
+    private List<McqModel> mcqModelList;
+    private RecyclerView rvSearch;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public SearchFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        searchView = view.findViewById(R.id.fSearch_searchView);
+        rvSearch = view.findViewById(R.id.fSearch_rvSearch);
+        mcqModelList = new ArrayList<>();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mcqModelList.clear();
+                if (s.length() > 2) {
+                    final String searchString = s.toLowerCase();
+                    db.collection(Global.MCQ).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (DocumentSnapshot ds : queryDocumentSnapshots) {
+                                String question = ds.getString("question");
+                                String category = ds.getString("category");
+                                assert category != null;
+                                category = category.toLowerCase();
+                                assert question != null;
+                                question = question.toLowerCase();
+                                if (question.contains(searchString) || category.contains(searchString)) {
+                                    McqModel mcqModel = ds.toObject(McqModel.class);
+                                    mcqModelList.add(mcqModel);
+                                }
+                            }
+                            if (mcqModelList.size() > 0) {
+                                MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
+                                rvSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                rvSearch.setAdapter(recyclerViewAdapter);
+                            } else {
+                                Toast.makeText(getActivity(), "No result found", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "No result found", Toast.LENGTH_SHORT).show();
+                }
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
     }
 }

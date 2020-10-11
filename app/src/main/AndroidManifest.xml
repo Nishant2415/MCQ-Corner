@@ -13,23 +13,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PostMcqActivity"/>
+        <activity android:name=".activity.PostMcqActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashScreenActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.EditProfile" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.SetUsernameActivity"/>
+        <activity android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.EditProfile"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SetUsernameActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.OTPVerificationActivity"
-            android:parentActivityName=".activity.RegisterActivity"/>
+            android:parentActivityName=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

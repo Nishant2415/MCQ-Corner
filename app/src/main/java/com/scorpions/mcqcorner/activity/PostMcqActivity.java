@@ -95,7 +95,7 @@ public class PostMcqActivity extends AppCompatActivity {
     }
 
     private void postMCQ(McqModel mcqModel) {
-        db.collection(Global.MCQ).document(Preference.getString(PostMcqActivity.this, Global.USER_ID)).collection(Global.MCQ).document().set(mcqModel)
+        db.collection(Global.MCQ).document().set(mcqModel)
                 .addOnCompleteListener(PostMcqActivity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
