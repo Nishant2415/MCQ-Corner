@@ -38,7 +38,7 @@ public class SetUsernameActivity extends AppCompatActivity {
     private Button btnNext;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
-    private String flag, mEmail, mPassword;
+    private String flag, mEmail, mPassword,mobileNo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class SetUsernameActivity extends AppCompatActivity {
         flag = getIntent().getStringExtra(Global.FLAG);
         mEmail = getIntent().getStringExtra(Global.EMAIL);
         mPassword = getIntent().getStringExtra(Global.PASSWORD);
+        mobileNo = getIntent().getStringExtra(Global.MOBILE_NO);
 
         if (flag != null && flag.equals(Global.FROM_EMAIL)) {
             edtPassword.setVisibility(View.GONE);
@@ -166,7 +167,8 @@ public class SetUsernameActivity extends AppCompatActivity {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put(Global.USERNAME, username);
         userMap.put(Global.PASSWORD, password);
-        userMap.put(Global.EMAIL, "");
+        userMap.put(Global.MOBILE_NO, mobileNo);
+        userMap.put(Global.EMAIL, mEmail);
         userMap.put(Global.FOLLOWING, FieldValue.arrayUnion());
         userMap.put(Global.FOLLOWERS, FieldValue.arrayUnion());
         userMap.put(Global.POSTS, 0);

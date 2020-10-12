@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -74,7 +75,11 @@ public class ProfileFragment extends Fragment {
         db.collection(Global.PROFILE).document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
+                if (documentSnapshot.exists() && getActivity()!=null) {
+                    Glide.with(getActivity().getApplicationContext())
+                            .load(documentSnapshot.getString(Global.PROFILE_PIC))
+                            .placeholder(R.drawable.user)
+                            .into(cimageView);
                     txtUserName.setText(documentSnapshot.getString(Global.USERNAME));
                     txtUserWebsite.setText(documentSnapshot.getString(Global.WEBSITE));
                     ArrayList<String> followingCount = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWING);

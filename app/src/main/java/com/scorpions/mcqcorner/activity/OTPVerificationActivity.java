@@ -35,6 +35,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
     private TextView txtTimer;
     private FirebaseAuth mAuth;
     private int time;
+    private String mobileNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
         init();
 
-        final String mobileNo = "+91" + getIntent().getStringExtra("mobileNo");
+        mobileNo = "+91" + getIntent().getStringExtra("mobileNo");
 
         sendVerificationCode(mobileNo);
 
@@ -147,6 +148,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(OTPVerificationActivity.this, SetUsernameActivity.class);
                             intent.putExtra(Global.FLAG, Global.FROM_OTP_VERIFICATION);
+                            intent.putExtra(Global.MOBILE_NO,mobileNo);
                             startActivity(intent);
                             finish();
                         } else {
