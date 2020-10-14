@@ -124,31 +124,35 @@ public class SetUsernameActivity extends AppCompatActivity {
                 public void onTextChanged(CharSequence word, int i, int i1, int i2) {
                     final String username = edtUsername.getEditText().getText().toString().trim().toLowerCase();
                     if (!TextUtils.isEmpty(username)) {
-                        db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                if (queryDocumentSnapshots.isEmpty()) {
-                                    edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-                                    edtUsername.setEndIconDrawable(R.drawable.ic_check);
-                                    edtUsername.setError(null);
-                                    btnNext.setEnabled(true);
-                                } else {
-                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                        if (documentSnapshot.exists()) {
-                                            if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
-                                                edtUsername.setError(Global.USERNAME_TAKEN);
-                                                return;
-                                            } else {
-                                                edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-                                                edtUsername.setEndIconDrawable(R.drawable.ic_check);
-                                                edtUsername.setError(null);
-                                                btnNext.setEnabled(true);
+                        if (username.length() > 2) {
+                            db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (queryDocumentSnapshots.isEmpty()) {
+                                        edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                        edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                        edtUsername.setError(null);
+                                        btnNext.setEnabled(true);
+                                    } else {
+                                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                            if (documentSnapshot.exists()) {
+                                                if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
+                                                    edtUsername.setError(Global.USERNAME_TAKEN);
+                                                    return;
+                                                } else {
+                                                    edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                                    edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                                    edtUsername.setError(null);
+                                                    btnNext.setEnabled(true);
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            edtUsername.setError(Global.USERNAME_SHORT);
+                        }
                     } else {
                         edtUsername.setEndIconDrawable(null);
                         edtUsername.setError(null);

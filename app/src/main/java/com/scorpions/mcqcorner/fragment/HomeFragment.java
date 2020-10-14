@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         FloatingActionButton fab = view.findViewById(R.id.floating_action_button);
-        rvPosts = view.findViewById(R.id.fHome_rvPost);
+        rvPosts = view.findViewById(R.id.fProfile_recyclerView);
         mcqModelList = new ArrayList<>();
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

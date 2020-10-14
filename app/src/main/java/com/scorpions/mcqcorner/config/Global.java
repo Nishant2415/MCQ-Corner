@@ -30,6 +30,7 @@ public class Global {
     public static final String TIME = "time";
     public static final String FOLLOWERS = "followers";
     public static final String POSTS = "posts";
+    public static final CharSequence USERNAME_SHORT = "Username is too short!";
 
     private static OnDialogClickListener clickListener;
     private static Dialog loadingDialog;

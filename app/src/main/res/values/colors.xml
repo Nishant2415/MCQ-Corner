@@ -9,4 +9,5 @@
     <color name="colorPrimaryText">#2C2C2C</color>
     <color name="colorTransparent">#0000</color>
     <color name="colorRipple">#DD928D</color>
+    <color name="colorBlue">#1F308C</color>
 </resources>
