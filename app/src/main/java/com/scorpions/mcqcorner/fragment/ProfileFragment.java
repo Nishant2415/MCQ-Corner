@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
+    private static final String TAG = "ProfileFragment";
     CircleImageView cimageView;
     String userid;
     Button btnedt;
@@ -73,11 +75,9 @@ public class ProfileFragment extends Fragment {
         rvPosts.setNestedScrollingEnabled(false);
         mcqModelList = new ArrayList<>();
 
-        btnedtclick();
-
         getProfile(view);
 
-        setRecyclerView(view);
+        btnedtclick();
 
         txtUserWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void getProfile(View view) {
+    private void getProfile(final View view) {
         db = FirebaseFirestore.getInstance();
 
         userid = Preference.getString(view.getContext(), Global.USER_ID);
@@ -106,8 +106,16 @@ public class ProfileFragment extends Fragment {
                     ArrayList<String> followerCount = (ArrayList<String>) documentSnapshot.get(Global.FOLLOWERS);
                     txtFollowingCount.setText(String.valueOf(followingCount.size()));
                     txtFollowerCount.setText(String.valueOf(followerCount.size()));
+                    Log.e(TAG, "onSuccess: " + "Post count assigned");
                     postsCount = documentSnapshot.getLong(Global.POSTS);
                     txtPostCount.setText(String.valueOf(postsCount));
+
+                    if (postsCount < 1) {
+                        rvPosts.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    } else{
+                        setRecyclerView(view);
+                    }
                 }
             }
         });
@@ -134,14 +142,11 @@ public class ProfileFragment extends Fragment {
                                 mcqModelList.add(mcqModel);
                             }
                         }
-                        if (postsCount == 0) {
-                            rvPosts.setVisibility(View.INVISIBLE);
-                            txtEmpty.setVisibility(View.VISIBLE);
-                        } else {
-                            MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
-                            rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            rvPosts.setAdapter(recyclerViewAdapter);
-                        }
+                        Log.e(TAG, "onSuccess: " + postsCount);
+
+                        MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
+                        rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        rvPosts.setAdapter(recyclerViewAdapter);
                     }
                 });
     }
