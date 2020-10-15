@@ -59,7 +59,6 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         edtSearch = toolbar.findViewById(R.id.janghiyo);
         rvSearch = view.findViewById(R.id.fSearch_rvSearch);
-        edtSearch.setIconifiedByDefault(false);
         mcqModelList = new ArrayList<>();
 
         edtSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

@@ -15,8 +15,8 @@
             android:id="@+id/janghiyo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="Search"
+            android:queryHint="Search"
+            android:iconifiedByDefault="false"
             android:inputType="text" />
 
     </RelativeLayout>
