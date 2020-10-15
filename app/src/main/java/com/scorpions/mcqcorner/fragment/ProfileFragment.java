@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment {
     String userid;
     Button btnedt;
     TextView txtUserName, txtUserWebsite;
-    private TextView txtPostCount, txtFollowingCount, txtFollowerCount;
+    private TextView txtEmpty, txtPostCount, txtFollowingCount, txtFollowerCount;
     private RecyclerView rvPosts;
     private List<McqModel> mcqModelList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
         txtPostCount = view.findViewById(R.id.fProfile_txtPostCount);
         txtFollowingCount = view.findViewById(R.id.fProfile_txtFollowingCount);
         txtFollowerCount = view.findViewById(R.id.fProfile_txtFollowerCount);
+        txtEmpty = view.findViewById(R.id.fProfile_txtEmpty);
 
         rvPosts = view.findViewById(R.id.fProfile_recyclerView);
         rvPosts.setNestedScrollingEnabled(false);
@@ -128,16 +129,19 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot ds : queryDocumentSnapshots) {
-                            if (Preference.getString(view.getContext(), Global.USER_ID).equals(ds.getString("userId"))) {
+                            if (Preference.getString(view.getContext(), Global.USER_ID).equals(ds.getString(Global.USER_ID))) {
                                 McqModel mcqModel = ds.toObject(McqModel.class);
                                 mcqModelList.add(mcqModel);
                             }
                         }
-                        MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
-                        rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) postsCount * 250);
-                        rvPosts.setLayoutParams(params);
-                        rvPosts.setAdapter(recyclerViewAdapter);
+                        if (postsCount == 0) {
+                            rvPosts.setVisibility(View.INVISIBLE);
+                            txtEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
+                            rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            rvPosts.setAdapter(recyclerViewAdapter);
+                        }
                     }
                 });
     }

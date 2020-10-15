@@ -1,5 +1,6 @@
 package com.scorpions.mcqcorner.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.activity.MainActivity;
+import com.scorpions.mcqcorner.activity.UserProfileActivity;
 import com.scorpions.mcqcorner.adapter.MCQAdapter;
 import com.scorpions.mcqcorner.config.Global;
 import com.scorpions.mcqcorner.model.McqModel;
@@ -85,6 +87,16 @@ public class SearchFragment extends Fragment {
                                 MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
                                 rvSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 rvSearch.setAdapter(recyclerViewAdapter);
+
+                                recyclerViewAdapter.usernameClicked(new MCQAdapter.setOnUsernameClickedListener() {
+                                    @Override
+                                    public void OnUsernameClick(String userId) {
+                                        if (getActivity() != null) {
+                                            getActivity().startActivity(new Intent(getActivity(), UserProfileActivity.class)
+                                                    .putExtra(Global.USER_ID, userId));
+                                        }
+                                    }
+                                });
                             } else {
                                 Toast.makeText(getActivity(), "No result found", Toast.LENGTH_SHORT).show();
                             }

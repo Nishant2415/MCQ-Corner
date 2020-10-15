@@ -15,7 +15,7 @@ public class Global {
     public static final String PROFILE = "Profile";
     public static final String MCQ = "MCQ";
     public static final String USERNAME = "username";
-    public static final String USER_ID = "UserId";
+    public static final String USER_ID = "userId";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String IS_LOGGED_IN = "isLoggedIn";
@@ -31,6 +31,8 @@ public class Global {
     public static final String FOLLOWERS = "followers";
     public static final String POSTS = "posts";
     public static final CharSequence USERNAME_SHORT = "Username is too short!";
+    public static final String UNFOLLOW = "Unfollow";
+    public static final String FOLLOW = "Follow";
 
     private static OnDialogClickListener clickListener;
     private static Dialog loadingDialog;

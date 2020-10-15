@@ -27,6 +27,7 @@ import com.scorpions.mcqcorner.R;
 import com.scorpions.mcqcorner.activity.LoginActivity;
 import com.scorpions.mcqcorner.activity.MainActivity;
 import com.scorpions.mcqcorner.activity.PostMcqActivity;
+import com.scorpions.mcqcorner.activity.UserProfileActivity;
 import com.scorpions.mcqcorner.adapter.MCQAdapter;
 import com.scorpions.mcqcorner.config.Global;
 import com.scorpions.mcqcorner.config.Preference;
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         FloatingActionButton fab = view.findViewById(R.id.floating_action_button);
-        rvPosts = view.findViewById(R.id.fProfile_recyclerView);
+        rvPosts = view.findViewById(R.id.fHome_rvPost);
         mcqModelList = new ArrayList<>();
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
         setRecyclerView(view);
     }
 
-    private void setRecyclerView(View view) {
+    private void setRecyclerView(final View view) {
         db.collection(Global.PROFILE).document(Preference.getString(view.getContext(), Global.USER_ID)).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -95,8 +96,18 @@ public class HomeFragment extends Fragment {
                                                     }
                                                 }
                                                 MCQAdapter recyclerViewAdapter = new MCQAdapter(mcqModelList);
-                                                rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                                rvPosts.setLayoutManager(new LinearLayoutManager(view.getContext()));
                                                 rvPosts.setAdapter(recyclerViewAdapter);
+
+                                                recyclerViewAdapter.usernameClicked(new MCQAdapter.setOnUsernameClickedListener() {
+                                                    @Override
+                                                    public void OnUsernameClick(String userId) {
+                                                        if(getActivity()!=null) {
+                                                            getActivity().startActivity(new Intent(getActivity(), UserProfileActivity.class)
+                                                                    .putExtra(Global.USER_ID, userId));
+                                                        }
+                                                    }
+                                                });
                                             }
                                         });
                             }

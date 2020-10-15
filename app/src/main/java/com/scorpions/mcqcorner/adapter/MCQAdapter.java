@@ -25,6 +25,7 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.ViewHolder> {
 
     private List<McqModel> postedMCQ;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private setOnUsernameClickedListener listener;
 
     public MCQAdapter(List<McqModel> postedMCQ) {
         this.postedMCQ = postedMCQ;
@@ -38,7 +39,7 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MCQAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MCQAdapter.ViewHolder holder, final int position) {
         final McqModel mcqModel = postedMCQ.get(position);
 
         db.collection(Global.PROFILE).document(mcqModel.getUserId()).get()
@@ -62,6 +63,14 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.ViewHolder> {
         holder.optionC.setText(String.format("C. %s", mcqModel.getOptionC()));
         holder.optionD.setText(String.format("D. %s", mcqModel.getOptionD()));
         holder.answer.setText(String.format("ANSWER : %s", mcqModel.getAnswer()));
+
+        holder.userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener!=null)
+                    listener.OnUsernameClick(mcqModel.getUserId());
+            }
+        });
     }
 
     @Override
@@ -74,7 +83,7 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.ViewHolder> {
         private TextView userName, time, question, optionA, optionB, optionC, optionD, answer;
         private ImageView imgProfilePic;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.rvAdapter_username);
             time = itemView.findViewById(R.id.rvAdapter_timestamp);
@@ -86,5 +95,13 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.ViewHolder> {
             answer = itemView.findViewById(R.id.rvAdapter_MCQ_Answer);
             imgProfilePic = itemView.findViewById(R.id.rvAdapter_user_image);
         }
+    }
+
+    public interface setOnUsernameClickedListener {
+        void OnUsernameClick(String userId);
+    }
+
+    public void usernameClicked(setOnUsernameClickedListener listener) {
+        this.listener = listener;
     }
 }
