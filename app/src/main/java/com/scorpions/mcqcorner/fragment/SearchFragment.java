@@ -2,17 +2,14 @@ package com.scorpions.mcqcorner.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -21,6 +18,7 @@ import com.scorpions.mcqcorner.activity.MainActivity;
 import com.scorpions.mcqcorner.activity.UserProfileActivity;
 import com.scorpions.mcqcorner.adapter.MCQAdapter;
 import com.scorpions.mcqcorner.config.Global;
+import com.scorpions.mcqcorner.config.Preference;
 import com.scorpions.mcqcorner.model.McqModel;
 
 import java.util.ArrayList;
@@ -35,7 +33,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchFragment extends Fragment {
 
-    private SearchView edtSearch;
     private List<McqModel> mcqModelList;
     private RecyclerView rvSearch;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -57,7 +54,7 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        edtSearch = toolbar.findViewById(R.id.janghiyo);
+        SearchView edtSearch = toolbar.findViewById(R.id.janghiyo);
         rvSearch = view.findViewById(R.id.fSearch_rvSearch);
         mcqModelList = new ArrayList<>();
 
@@ -91,8 +88,16 @@ public class SearchFragment extends Fragment {
                                     @Override
                                     public void OnUsernameClick(String userId) {
                                         if (getActivity() != null) {
-                                            getActivity().startActivity(new Intent(getActivity(), UserProfileActivity.class)
-                                                    .putExtra(Global.USER_ID, userId));
+                                            if(!userId.equals(Preference.getString(getActivity().getApplicationContext(),Global.USER_ID))) {
+                                                getActivity().startActivity(new Intent(getActivity(), UserProfileActivity.class)
+                                                        .putExtra(Global.USER_ID, userId));
+                                            }
+                                            else
+                                            {
+                                                BottomNavigationView bnv=getActivity().findViewById(R.id.aMain_bottomNavigationView);
+                                                bnv.setSelectedItemId(R.id.mNavigation_profile);
+                                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new ProfileFragment()).commit();
+                                            }
                                         }
                                     }
                                 });

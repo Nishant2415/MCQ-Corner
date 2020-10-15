@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +22,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -36,7 +42,7 @@ import java.util.Map;
 public class EditProfile extends AppCompatActivity {
 
     private static final String TAG = "EditProfile";
-    private EditText edtUsername, edtWebsite, edtMobileNo, edtEmail;
+    private TextInputLayout edtUsername, edtWebsite, edtMobileNo, edtEmail;
     private FirebaseFirestore db;
     private final int PICK_IMAGE_REQUEST = 24;
     private ImageView imgProfilePic;
@@ -60,15 +66,19 @@ public class EditProfile extends AppCompatActivity {
         });
 
         setupProfile();
+        checkingUsername();
 
         // Update profile in database
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = edtUsername.getText().toString().trim();
-                String website = edtWebsite.getText().toString().trim();
-                String mobileNo = edtMobileNo.getText().toString().trim();
-                String email = edtEmail.getText().toString().trim();
+                String username = "",website = "",mobileNo = "",email = "";
+                if (edtEmail.getEditText()!=null && edtWebsite.getEditText()!=null && edtUsername.getEditText()!=null && edtMobileNo.getEditText()!=null){
+                username = edtUsername.getEditText().getText().toString().trim();
+                website = edtWebsite.getEditText().getText().toString().trim();
+                mobileNo = edtMobileNo.getEditText().getText().toString().trim();
+                email = edtEmail.getEditText().getText().toString().trim();
+                }
                 if (!username.isEmpty()) {
                     Map<String, Object> profileMap = new HashMap<>();
                     profileMap.put(Global.USERNAME, username);
@@ -127,12 +137,12 @@ public class EditProfile extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
+                        if (documentSnapshot.exists() && edtEmail.getEditText()!=null && edtWebsite.getEditText()!=null && edtUsername.getEditText()!=null && edtMobileNo.getEditText()!=null) {
                             Log.e(TAG, "onSuccess: " + "setupProfile");
-                            edtUsername.setText(documentSnapshot.getString(Global.USERNAME));
-                            edtWebsite.setText(documentSnapshot.getString(Global.WEBSITE));
-                            edtMobileNo.setText(documentSnapshot.getString(Global.MOBILE_NO));
-                            edtEmail.setText(documentSnapshot.getString(Global.EMAIL));
+                            edtUsername.getEditText().setText(documentSnapshot.getString(Global.USERNAME));
+                            edtWebsite.getEditText().setText(documentSnapshot.getString(Global.WEBSITE));
+                            edtMobileNo.getEditText().setText(documentSnapshot.getString(Global.MOBILE_NO));
+                            edtEmail.getEditText().setText(documentSnapshot.getString(Global.EMAIL));
                             Glide.with(getApplicationContext()).load(documentSnapshot.getString(Global.PROFILE_PIC)).placeholder(R.drawable.user).into(imgProfilePic);
                         }
                     }
@@ -168,6 +178,63 @@ public class EditProfile extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void checkingUsername() {
+        if (edtUsername.getEditText() != null) {
+
+            edtUsername.getEditText().addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence word, int i, int i1, int i2) {
+                    final String username = edtUsername.getEditText().getText().toString().trim().toLowerCase();
+                    if (!TextUtils.isEmpty(username)) {
+                        if (username.length() > 2) {
+                            db.collection(Global.PROFILE).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (queryDocumentSnapshots.isEmpty()) {
+                                        edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                        edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                        edtUsername.setError(null);
+                                        btnUpdate.setEnabled(true);
+                                    } else {
+                                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                if (documentSnapshot.exists()) {
+                                                    if(!documentSnapshot.getId().equals(Preference.getString(EditProfile.this,Global.USER_ID))) {
+                                                    if (username.equals(documentSnapshot.getString(Global.USERNAME))) {
+                                                        edtUsername.setError(Global.USERNAME_TAKEN);
+                                                        return;
+                                                    } else {
+                                                        edtUsername.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                                                        edtUsername.setEndIconDrawable(R.drawable.ic_check);
+                                                        edtUsername.setError(null);
+                                                        btnUpdate.setEnabled(true);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                            edtUsername.setError(Global.USERNAME_SHORT);
+                        }
+                    } else {
+                        edtUsername.setEndIconDrawable(null);
+                        edtUsername.setError(null);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+        }
     }
 
     @Override

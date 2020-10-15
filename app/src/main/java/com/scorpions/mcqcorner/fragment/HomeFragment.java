@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -103,8 +104,16 @@ public class HomeFragment extends Fragment {
                                                     @Override
                                                     public void OnUsernameClick(String userId) {
                                                         if(getActivity()!=null) {
-                                                            getActivity().startActivity(new Intent(getActivity(), UserProfileActivity.class)
-                                                                    .putExtra(Global.USER_ID, userId));
+                                                            if(!userId.equals(Preference.getString(getActivity().getApplicationContext(),Global.USER_ID))) {
+                                                                getActivity().startActivity(new Intent(getActivity(), UserProfileActivity.class)
+                                                                        .putExtra(Global.USER_ID, userId));
+                                                            }
+                                                            else
+                                                            {
+                                                                BottomNavigationView bnv=getActivity().findViewById(R.id.aMain_bottomNavigationView);
+                                                                bnv.setSelectedItemId(R.id.mNavigation_profile);
+                                                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new ProfileFragment()).commit();
+                                                            }
                                                         }
                                                     }
                                                 });
