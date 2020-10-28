@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,19 +33,28 @@ import com.scorpions.mcqcorner.activity.MainActivity;
 import com.scorpions.mcqcorner.activity.PostMcqActivity;
 import com.scorpions.mcqcorner.activity.UserProfileActivity;
 import com.scorpions.mcqcorner.adapter.MCQAdapter;
+import com.scorpions.mcqcorner.adapter.TopFollowerAdapter;
 import com.scorpions.mcqcorner.config.Global;
 import com.scorpions.mcqcorner.config.Preference;
+import com.scorpions.mcqcorner.model.FollowerModel;
 import com.scorpions.mcqcorner.model.McqModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.microedition.khronos.opengles.GL10;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
-    private RecyclerView rvPosts;
+    private RecyclerView rvPosts,rvTopFollowers;
     private List<McqModel> mcqModelList;
+    private List<FollowerModel> followerModelList;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private MainActivity mainActivity;
 
@@ -65,7 +77,10 @@ public class HomeFragment extends Fragment {
 
         FloatingActionButton fab = view.findViewById(R.id.floating_action_button);
         rvPosts = view.findViewById(R.id.fHome_rvPost);
+        rvTopFollowers = view.findViewById(R.id.fHome_topFollowers);
         mcqModelList = new ArrayList<>();
+        rvPosts.setNestedScrollingEnabled(false);
+        followerModelList = new ArrayList<>();
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), PostMcqActivity.class));
@@ -119,10 +134,25 @@ public class HomeFragment extends Fragment {
                                                 });
                                             }
                                         });
+
                             }
                         }
                     }
                 });
+        db.collection(Global.PROFILE).orderBy(Global.FOLLOERCOUNT, Query.Direction.DESCENDING).limit(5).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot ds : queryDocumentSnapshots) {
+                    FollowerModel followerModel = ds.toObject(FollowerModel.class);
+                    followerModel.setUserId(ds.getId());
+                    followerModelList.add(followerModel);
+                }
+                TopFollowerAdapter topFollowerAdapter = new TopFollowerAdapter(followerModelList);
+                rvTopFollowers.setAdapter(topFollowerAdapter);
+            }
+
+
+        });
     }
 
     @Override
@@ -141,4 +171,6 @@ public class HomeFragment extends Fragment {
         }
         return false;
     }
+
+
 }

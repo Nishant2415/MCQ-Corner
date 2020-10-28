@@ -176,6 +176,7 @@ public class SetUsernameActivity extends AppCompatActivity {
         userMap.put(Global.FOLLOWING, FieldValue.arrayUnion());
         userMap.put(Global.FOLLOWERS, FieldValue.arrayUnion());
         userMap.put(Global.POSTS, 0);
+        userMap.put(Global.FOLLOERCOUNT,0);
 
         if (mAuth.getCurrentUser() != null) {
             db.collection(Global.PROFILE).document(mAuth.getCurrentUser().getUid())

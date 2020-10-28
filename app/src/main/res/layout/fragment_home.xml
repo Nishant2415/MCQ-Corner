@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/fHome_appBarLayout"
         android:layout_width="match_parent"
@@ -15,6 +21,47 @@
             android:id="@+id/fHome_toolbar"
             layout="@layout/layout_toolbar"/>
     </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/TopFollowersText"
+            android:layout_marginLeft="@dimen/scale_12dp"
+            android:layout_marginTop="@dimen/scale_16dp"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/fHome_appBarLayout"
+            android:layout_height="wrap_content"
+            android:text="Top Followers"
+            android:textSize="@dimen/scale_16dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fHome_topFollowers"
+        android:layout_width="match_parent"
+        android:layout_below="@id/TopFollowersText"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="@dimen/scale_12dp"
+        android:layout_height="@dimen/scale_200dp"
+        tools:listitem="@layout/layout_top_followers"
+        />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fHome_rvPost"
+            android:layout_width="match_parent"
+            android:layout_below="@id/fHome_topFollowers"
+            android:layout_marginTop="@dimen/scale_12dp"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/layout_mcq_single"
+            />
+
+
+</RelativeLayout>
+    </ScrollView>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
@@ -26,13 +73,5 @@
         android:src="@drawable/feather"
         app:backgroundTint="@color/colorAccent"
         app:tint="@color/colorWhite" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fHome_rvPost"
-        android:layout_width="match_parent"
-        android:layout_below="@id/fHome_appBarLayout"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/layout_mcq_single"
-        android:scrollbars="vertical" />
 
 </RelativeLayout>

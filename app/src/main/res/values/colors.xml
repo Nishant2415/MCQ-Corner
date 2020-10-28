@@ -10,4 +10,6 @@
     <color name="colorTransparent">#0000</color>
     <color name="colorRipple">#DD928D</color>
     <color name="colorBlue">#1F308C</color>
+    <color name="colorLightGray">#D2D2D2</color>
+
 </resources>

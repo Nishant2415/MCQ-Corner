@@ -33,6 +33,7 @@ public class Global {
     public static final CharSequence USERNAME_SHORT = "Username is too short!";
     public static final String UNFOLLOW = "Unfollow";
     public static final String FOLLOW = "Follow";
+    public static final String FOLLOERCOUNT = "followerCount";
 
     private static OnDialogClickListener clickListener;
     private static Dialog loadingDialog;

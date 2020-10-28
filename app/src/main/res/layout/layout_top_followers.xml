@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/scale_120dp"
+        android:id="@+id/cardview"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/scale_12dp"
+        android:layout_height="@dimen/scale_180dp"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/scale_10dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/lTopFollower_imgProfilePic"
+            android:layout_width="@dimen/scale_80dp"
+            android:layout_height="@dimen/scale_80dp"
+            android:translationZ="@dimen/scale_4dp"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/lTopFollower_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_100dp"
+            android:gravity="center"
+            android:text="Username"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_16sp"
+            android:textColor="@color/colorBlack"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_12sp"
+            android:id="@+id/lTopFollower_btnFollow"
+            style="@style/AppTheme.Button"
+            android:text="@string/follow" />
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

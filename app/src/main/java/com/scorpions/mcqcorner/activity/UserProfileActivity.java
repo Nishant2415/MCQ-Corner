@@ -134,6 +134,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Map<String, Object> followerMap = new HashMap<>();
                     followerMap.put(Global.FOLLOWERS, FieldValue.arrayUnion(Preference.getString(UserProfileActivity.this, Global.USER_ID)));
+                    followerMap.put(Global.FOLLOERCOUNT,FieldValue.increment(1));
                     db.collection(Global.PROFILE).document(userID).update(followerMap);
                     flag = 1;
                     btnFollow.setText(Global.UNFOLLOW);
@@ -153,6 +154,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Map<String, Object> followerMap = new HashMap<>();
                     followerMap.put(Global.FOLLOWERS, FieldValue.arrayRemove(Preference.getString(UserProfileActivity.this, Global.USER_ID)));
+                    followerMap.put(Global.FOLLOERCOUNT,FieldValue.increment(-1));
                     db.collection(Global.PROFILE).document(userID).update(followerMap);
                     flag = 0;
                     btnFollow.setText(Global.FOLLOW);
